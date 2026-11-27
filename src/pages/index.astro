@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import NameStory from '../components/NameStory.astro';
+import Services from '../components/Services.astro';
+import Faq from '../components/Faq.astro';
+import Contact from '../components/Contact.astro';
+import { site } from '../data/company';
+---
+
+<Base title={site.title} description={site.description} path="/" faq>
+  <Hero />
+  <About />
+  <NameStory />
+  <Services />
+  <Faq />
+  <Contact />
+</Base>

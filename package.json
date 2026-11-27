@@ -1,0 +1,25 @@
+{
+  "name": "xmsrv-tech",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "厦门智邃科技有限公司官网（Astro 静态站点，托管于 GitHub Pages）",
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/subset-fonts.mjs",
+    "preview": "astro preview",
+    "rings": "node scripts/generate-rings.mjs",
+    "assets": "python scripts/render_assets.py"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.6",
+    "@fontsource/cormorant-garamond": "5.3.0",
+    "astro": "7.4.1"
+  },
+  "devDependencies": {
+    "subset-font": "2.9.0"
+  }
+}

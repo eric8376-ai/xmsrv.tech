@@ -1,0 +1,40 @@
+---
+import Logo from './Logo.astro';
+import { company } from '../data/company';
+
+const links = [
+  { href: '#about', label: '关于智邃' },
+  { href: '#services', label: '业务方向' },
+  { href: '#faq', label: '常见问题' },
+];
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="/" aria-label={`${company.legalName} 首页`}>
+      <span class="brand__mark"><Logo /></span>
+      <span class="brand__text">
+        <span class="brand__name serif">{company.shortName}</span>
+        <span class="brand__latin">{company.latinName}</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="主导航">
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+
+    <a class="btn btn--ghost btn--sm site-header__cta" href="#contact">联系我们</a>
+
+    <details class="nav-drawer">
+      <summary class="nav-drawer__toggle" aria-label="展开导航菜单">
+        <span></span>
+        <span></span>
+      </summary>
+      <nav class="nav-drawer__nav" aria-label="移动端导航">
+        {[...links, { href: '#contact', label: '联系我们' }].map((link) => (
+          <a href={link.href}>{link.label}</a>
+        ))}
+      </nav>
+    </details>
+  </div>
+</header>

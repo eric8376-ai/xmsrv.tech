@@ -1,0 +1,22 @@
+---
+interface Props {
+  /** 序号，如 "01" */
+  index: string;
+  /** 英文小标签，如 "About" */
+  label: string;
+  title: string;
+  /** 标题元素 id，供 section 的 aria-labelledby 引用 */
+  id?: string;
+}
+
+const { index, label, title, id } = Astro.props;
+---
+
+<div class="section-head">
+  <p class="section-head__meta">
+    <span class="section-head__index" aria-hidden="true">{index}</span>
+    <span class="section-head__rule" aria-hidden="true"></span>
+    <span class="section-head__label">{label}</span>
+  </p>
+  <h2 class="section-head__title serif" id={id}>{title}</h2>
+</div>

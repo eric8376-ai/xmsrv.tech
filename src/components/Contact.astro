@@ -1,0 +1,41 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { company, contact } from '../data/company';
+---
+
+<section class="section contact" id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="contact__panel" data-reveal>
+      <img
+        class="contact__visual"
+        src="/images/depth-rings.svg"
+        alt=""
+        width="1400"
+        height="1400"
+        loading="lazy"
+        decoding="async"
+        aria-hidden="true"
+      />
+
+      <div class="contact__main">
+        <SectionHeading index={contact.index} label={contact.label} title={contact.title} id="contact-title" />
+        <p class="contact__heading serif">{contact.heading}</p>
+        <p class="contact__text">{contact.text}</p>
+      </div>
+
+      <address class="contact__card">
+        <span class="contact__org serif">{company.legalName}</span>
+        <dl class="contact__channels">
+          {
+            contact.channels.map((channel) => (
+              <div class="contact__row">
+                <dt>{channel.label}</dt>
+                <dd>{channel.href ? <a href={channel.href}>{channel.value}</a> : channel.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </address>
+    </div>
+  </div>
+</section>

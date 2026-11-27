@@ -1,0 +1,98 @@
+---
+// 拉丁显示字体（数字与英文点缀）。只引用 latin 子集，减小产物体积
+import '@fontsource/cormorant-garamond/latin-500-italic.css';
+import '@fontsource/cormorant-garamond/latin-600.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { company, site } from '../data/company';
+import { buildSchemaGraph } from '../lib/schema';
+
+interface Props {
+  title: string;
+  description: string;
+  /** 页面路径，如 '/' */
+  path: string;
+  /** 分享图路径（相对站点根） */
+  image?: string;
+  /** 页面是否包含常见问题区块（生成 FAQPage 结构化数据） */
+  faq?: boolean;
+  /** 不被搜索引擎收录（如 404 页） */
+  noindex?: boolean;
+}
+
+const { title, description, path, image = '/og/home.png', faq = false, noindex = false } = Astro.props;
+const canonical = new URL(path, site.url).href;
+const imageUrl = new URL(image, site.url).href;
+// JSON 里的 "<" 一律转义，防止 </script> 提前闭合
+const schema = JSON.stringify(buildSchemaGraph({ path, title, description, image, includeFaq: faq })).replace(
+  /</g,
+  '\\u003c',
+);
+---
+
+<!doctype html>
+<html lang={site.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+      )
+    }
+    <meta name="author" content={company.legalName} />
+    <meta name="geo.region" content="CN-35" />
+    <meta name="geo.placename" content="厦门" />
+    <meta name="theme-color" content="#060910" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    {/* 分享卡片 */}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={company.shortName} />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    {/* 标题字体子集通常只有几十 KB，提前加载避免首屏标题跳动 */}
+    <link rel="preload" href="/fonts/zhisui-serif-600.woff2" as="font" type="font/woff2" crossorigin />
+
+    <script type="application/ld+json" set:html={schema} is:inline />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      // 移动端菜单基于原生 <details>，无需 JS 也能用；这里只是让点击链接后自动收起
+      const drawer = document.querySelector<HTMLDetailsElement>('.nav-drawer');
+      drawer?.querySelectorAll('a').forEach((link) =>
+        link.addEventListener('click', () => {
+          drawer.open = false;
+        }),
+      );
+    </script>
+  </body>
+</html>

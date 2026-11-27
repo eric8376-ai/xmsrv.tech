@@ -1,0 +1,16 @@
+# 依赖
+node_modules/
+
+# 构建产物
+dist/
+.astro/
+
+# 字体源文件（体积大；子集产物已提交在 public/fonts/，下载方式见 README）
+assets/fonts/source/
+
+# 本地环境
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/

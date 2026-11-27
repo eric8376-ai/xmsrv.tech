@@ -1,0 +1,41 @@
+---
+import Logo from './Logo.astro';
+import { company } from '../data/company';
+
+const links = [
+  { href: '#about', label: '关于智邃' },
+  { href: '#services', label: '业务方向' },
+  { href: '#faq', label: '常见问题' },
+  { href: '#contact', label: '联系我们' },
+];
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <a class="brand" href="/" aria-label={`${company.legalName} 首页`}>
+        <span class="brand__mark"><Logo /></span>
+        <span class="brand__text">
+          <span class="brand__name serif">{company.shortName}</span>
+          <span class="brand__latin">{company.latinName}</span>
+        </span>
+      </a>
+      <p class="site-footer__tagline serif">{company.tagline}</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="页脚导航">
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+
+    <div class="site-footer__info">
+      <p class="site-footer__org">{company.legalName}</p>
+      <address class="site-footer__address">{company.fullAddress}</address>
+      <a class="site-footer__link" href={company.website}>{company.website.replace(/^https?:\/\//, '')}</a>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <p>© {company.founded.year}–{year} {company.legalName}</p>
+    <p class="serif">{company.tagline}</p>
+  </div>
+</footer>

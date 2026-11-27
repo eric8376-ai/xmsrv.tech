@@ -1,0 +1,30 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { faqs } from '../data/company';
+---
+
+<section class="section faq" id="faq" aria-labelledby="faq-title">
+  <div class="container faq__grid">
+    <div class="faq__head">
+      <SectionHeading index={faqs.index} label={faqs.label} title={faqs.title} id="faq-title" />
+      <p class="faq__note">{faqs.note}</p>
+    </div>
+
+    <div class="faq__list">
+      {
+        faqs.items.map((item, i) => (
+          <details class="faq-item" open={i === 0}>
+            <summary class="faq-item__question">
+              <span class="faq-item__no" aria-hidden="true">Q{i + 1}</span>
+              <span class="faq-item__text serif">{item.question}</span>
+              <span class="faq-item__icon" aria-hidden="true" />
+            </summary>
+            <div class="faq-item__answer">
+              <p>{item.answer}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

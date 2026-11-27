@@ -1,0 +1,87 @@
+---
+import { company, hero } from '../data/company';
+
+/** 定位句按「·」拆开，窄屏时整段换行，避免把公司名称从中间断开 */
+const entityParts = hero.entity.split(' · ');
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <img
+    class="hero__visual"
+    src="/images/depth-rings.svg"
+    alt=""
+    width="1400"
+    height="1400"
+    loading="eager"
+    decoding="async"
+    fetchpriority="low"
+    aria-hidden="true"
+  />
+
+  <div class="container hero__inner">
+    <p class="eyebrow" data-enter style="--i: 0">
+      <span>{hero.eyebrow}</span>
+      <em class="eyebrow__latin">{company.latinName}</em>
+    </p>
+
+    <h1 class="hero__headline serif" id="hero-title" data-enter style="--i: 1">
+      {
+        hero.headline.map((line, i) => (
+          <>
+            {/* 两行标语之间没有可见标点，补一个视觉隐藏的逗号，保证被当作一句话读取 */}
+            {i > 0 && <span class="sr-only">，</span>}
+            <span class:list={['hero__line', i > 0 && 'hero__line--gold']}>{line}</span>
+          </>
+        ))
+      }
+      <span class="sr-only">——</span>
+      <span class="hero__entity">
+        {
+          entityParts.map((part, i) => (
+            <>
+              {i > 0 && <span class="hero__dot"> · </span>}
+              <span>{part}</span>
+            </>
+          ))
+        }
+      </span>
+    </h1>
+
+    <p class="hero__lead" data-enter style="--i: 2">{hero.lead}</p>
+
+    <div class="hero__actions" data-enter style="--i: 3">
+      {
+        hero.actions.map((action) => (
+          <a class:list={['btn', action.primary ? 'btn--primary' : 'btn--ghost']} href={action.href}>
+            {action.label}
+            <span class="btn__icon">
+              <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+                <path
+                  d="M2 8h11M9 3.5 13.5 8 9 12.5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="container hero__facts" data-enter style="--i: 5">
+    <dl class="facts">
+      {
+        hero.facts.map((fact) => (
+          <div class="fact">
+            <dt class="fact__label">{fact.label}</dt>
+            <dd class="fact__value serif">{fact.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { nameStory } from '../data/company';
+---
+
+<section class="name-story" aria-labelledby="name-title">
+  <div class="container">
+    <SectionHeading index={nameStory.index} label={nameStory.label} title={nameStory.title} id="name-title" />
+
+    <ol class="name-story__list">
+      {
+        nameStory.items.map((item) => (
+          <li class="name-story__item" data-reveal>
+            <span class="name-story__glyph serif" aria-hidden="true">
+              {item.char}
+            </span>
+            <div class="name-story__text">
+              <p class="name-story__reading">
+                <span class="serif">{item.char}</span>
+                <em>{item.pinyin}</em>
+                <span>{item.meaning}</span>
+              </p>
+              <p class="name-story__desc">{item.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

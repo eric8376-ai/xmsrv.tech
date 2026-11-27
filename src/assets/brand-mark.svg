@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#16233f"/>
+      <stop offset="1" stop-color="#05070d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(32 32) rotate(90) scale(30)">
+      <stop stop-color="#e3b45a" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#e3b45a" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="clip">
+      <rect width="64" height="64" rx="16"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#clip)">
+    <rect width="64" height="64" fill="url(#bg)"/>
+    <rect width="64" height="64" fill="url(#glow)"/>
+    <circle cx="32" cy="32" r="26" stroke="#f4f1e8" stroke-opacity=".24"/>
+    <circle cx="32" cy="32" r="19" stroke="#f4f1e8" stroke-opacity=".58"/>
+    <circle cx="32" cy="32" r="12" stroke="#f4f1e8" stroke-opacity=".96" stroke-width="1.6"/>
+    <circle cx="32" cy="32" r="4.5" fill="#e3b45a"/>
+    <circle cx="51.3" cy="14.6" r="5.6" fill="#0c1425"/>
+    <circle cx="51.3" cy="14.6" r="3" fill="#e3b45a"/>
+  </g>
+  <rect x=".5" y=".5" width="63" height="63" rx="15.5" stroke="#f4f1e8" stroke-opacity=".16"/>
+</svg>

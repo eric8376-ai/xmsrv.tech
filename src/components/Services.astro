@@ -1,0 +1,27 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { services } from '../data/company';
+---
+
+<section class="section services" id="services" aria-labelledby="services-title">
+  <div class="container">
+    <div class="services__head">
+      <SectionHeading index={services.index} label={services.label} title={services.title} id="services-title" />
+      <p class="services__intro" data-reveal>{services.intro}</p>
+    </div>
+
+    <ul class="service-list">
+      {
+        services.items.map((item, i) => (
+          <li class="service" data-reveal>
+            <span class="service__no" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="service__title serif">{item.title}</h3>
+            <p class="service__text">{item.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="services__note" data-reveal>{services.note}</p>
+  </div>
+</section>
